@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+.table_box {
+  position: relative;
+}
+.table_box table {
+  margin: 0;
+  width: 100%;
+  border-spacing: 3px 3px;
+  border-collapse: inherit;
+  border: 2px solid #b7d4f1;
+}
+.table_box table td {
+  background: #48aae6;
+  padding: 0;
+}
+.btn {
+  position: absolute;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease-out;
+}
+.btn:hover {
+  opacity: 0.7;
+}
+.btn_remove {
+  background: #b20000;
+  visibility: hidden;
+}
+.btn_add {
+  background: #f3a500;
+}
