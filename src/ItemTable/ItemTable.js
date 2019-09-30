@@ -6,7 +6,7 @@ export default class ItemTable extends Component {
     super(props);
     this.state = {
       rows: Array.from(Array(this.props.initialWidth)).map((val, ind) => ind),
-      cols: Array.from(Array(this.props.initialHeight)).map((val, ind) => ind),
+      columns: Array.from(Array(this.props.initialHeight)).map((val, ind) => ind),
       count: 100,
       left: 0,
       top: 0,
@@ -26,13 +26,13 @@ export default class ItemTable extends Component {
       };
     });
   };
-  addCol = () => {
-    this.setState(({ cols, count }) => {
-      const newCol = [];
-      newCol.push(this.state.count);
-      const newArray = [...cols, newCol];
+  addColumn = () => {
+    this.setState(({ columns, count }) => {
+      const newColumn = [];
+      newColumn.push(this.state.count);
+      const newArray = [...columns, newColumn];
       return {
-        cols: newArray,
+        columns: newArray,
         count: count + 1
       };
     });
@@ -49,22 +49,21 @@ export default class ItemTable extends Component {
         top: counterPositionY * this.props.cellSize + counterPositionY * 3
       };
     });
-
-    this.deleteCol = () => {
-      this.setState(({ cols, positionX, left }) => {
-        const idx = cols.findIndex((el, index) => index === positionX);
-        const newArray = [...cols.slice(0, idx), ...cols.slice(idx + 1)];
+    this.deleteColumn = () => {
+      this.setState(({ columns, positionX, left }) => {
+        const idx = columns.findIndex((el, index) => index === positionX);
+        const newArray = [...columns.slice(0, idx), ...columns.slice(idx + 1)];
         return {
-          positionX: cols.length - 1 === positionX ? positionX - 1 : positionX,
-          cols: newArray,
+          positionX:
+            columns.length - 1 === positionX ? positionX - 1 : positionX,
+          columns: newArray,
           left:
-            cols.length - 1 === positionX
+            columns.length - 1 === positionX
               ? left - this.props.cellSize - 3
               : left
         };
       });
     };
-
     this.deleteRow = () => {
       this.setState(({ rows, positionY, top }) => {
         const idx = rows.findIndex((el, index) => index === positionY);
@@ -78,15 +77,13 @@ export default class ItemTable extends Component {
       });
     };
   };
-
   positionBtnToggle = () => {
     this.setState(({ active }) => {
       return {
-        active: !active
+        active: false
       };
     });
   };
-
   render() {
     const { cellSize } = this.props;
     return (
@@ -100,11 +97,11 @@ export default class ItemTable extends Component {
               <tbody onMouseOver={this.positionBtn}>
                 {this.state.rows.map((row, indexrow) => (
                   <tr key={row}>
-                    {this.state.cols.map((td, indextd) => (
+                    {this.state.columns.map((column, indexcolumn) => (
                       <td
-                        key={td}
+                        key={column}
                         style={{ height: cellSize, width: cellSize }}
-                        data-current-td={indextd}
+                        data-current-td={indexcolumn}
                         data-current-tr={indexrow}
                       ></td>
                     ))}
@@ -115,8 +112,8 @@ export default class ItemTable extends Component {
             <ButtonItem
               cellSize={cellSize}
               addRow={this.addRow}
-              addCol={this.addCol}
-              deleteCol={this.deleteCol}
+              addColumn={this.addColumn}
+              deleteColumn={this.deleteColumn}
               deleteRow={this.deleteRow}
               positionBtn={this.state}
             />
